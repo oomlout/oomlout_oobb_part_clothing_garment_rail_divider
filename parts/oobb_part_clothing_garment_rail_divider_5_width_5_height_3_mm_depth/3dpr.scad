@@ -127,7 +127,7 @@ difference() {
 		translate(v = [30.0000000000, 30.0000000000, 0]) {
 			cylinder(h = 3, r = 1.8000000000);
 		}
-		translate(v = [0, -33.5000000000, 0]) {
+		translate(v = [0, -41, 0]) {
 			hull() {
 				translate(v = [-0.0000000000, 41.0000000000, 0]) {
 					cylinder(h = 3, r = 17.5000000000);

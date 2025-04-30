@@ -25,7 +25,7 @@ kwargs:
   oomp_manufacturer: ''
   oomp_mode: oobb
   oomp_part_number: ''
-  oomp_run: true
+  oomp_run: false
   oomp_size: clothing_garment_rail_divider
   oomp_type: part
   overwrite: true
@@ -1042,7 +1042,7 @@ thing:
     oomp_manufacturer: ''
     oomp_mode: oobb
     oomp_part_number: ''
-    oomp_run: true
+    oomp_run: false
     oomp_size: base
     oomp_type: part
     overwrite: true
@@ -1073,7 +1073,7 @@ thing:
     oomp_manufacturer: ''
     oomp_mode: oobb
     oomp_part_number: ''
-    oomp_run: true
+    oomp_run: false
     oomp_size: base
     oomp_type: part
     overwrite: true
@@ -1099,7 +1099,7 @@ thing:
     oomp_manufacturer: ''
     oomp_mode: oobb
     oomp_part_number: ''
-    oomp_run: true
+    oomp_run: false
     oomp_size: base
     oomp_type: part
     overwrite: true
@@ -1119,9 +1119,9 @@ thing:
     type: n
     width: 5
   components_string:
-  - oobb_plate_shape_positive_type_3_depth_all_typ_all_save_type_true_navigation_true_overwrite_'3dpr'_modes_oobb_oomp_mode_true_oomp_run_5_width_5_height_3_thickness_oobb_oomp_classification_part_oomp_type_base_oomp_size
-  - oobb_holes_shape_p_type_3_depth_all_typ_all_save_type_true_navigation_true_overwrite_'3dpr'_modes_oobb_oomp_mode_true_oomp_run_5_width_5_height_3_thickness_oobb_oomp_classification_part_oomp_type_base_oomp_size_true_both_holes_'right'_'corner'_holes
-  - rounded_rectangle_shape_n_type_0_-33.5_0_pos_all_typ_all_save_type_true_navigation_true_overwrite_'3dpr'_modes_oobb_oomp_mode_true_oomp_run_5_width_5_height_3_thickness_oobb_oomp_classification_part_oomp_type_base_oomp_size_17.5_radius_35_117_3_size
+  - oobb_plate_shape_positive_type_3_depth_all_typ_all_save_type_true_navigation_true_overwrite_'3dpr'_modes_oobb_oomp_mode_false_oomp_run_5_width_5_height_3_thickness_oobb_oomp_classification_part_oomp_type_base_oomp_size
+  - oobb_holes_shape_p_type_3_depth_all_typ_all_save_type_true_navigation_true_overwrite_'3dpr'_modes_oobb_oomp_mode_false_oomp_run_5_width_5_height_3_thickness_oobb_oomp_classification_part_oomp_type_base_oomp_size_true_both_holes_'right'_'corner'_holes
+  - rounded_rectangle_shape_n_type_0_-33.5_0_pos_all_typ_all_save_type_true_navigation_true_overwrite_'3dpr'_modes_oobb_oomp_mode_false_oomp_run_5_width_5_height_3_thickness_oobb_oomp_classification_part_oomp_type_base_oomp_size_17.5_radius_35_117_3_size
   description: oomlout oobb part clothing garment rail clothing garment rail divider
     5x5x3
   description_extra: ''

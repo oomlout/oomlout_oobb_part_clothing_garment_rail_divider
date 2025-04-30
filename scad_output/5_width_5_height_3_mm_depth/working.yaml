@@ -25,7 +25,7 @@ kwargs:
   oomp_manufacturer: ''
   oomp_mode: oobb
   oomp_part_number: ''
-  oomp_run: true
+  oomp_run: false
   oomp_size: clothing_garment_rail_divider
   oomp_type: part
   overwrite: true
