@@ -21,13 +21,13 @@ def make_scad(**kwargs):
         #typ = "manual"
 
     oomp_mode = "project"
-    #oomp_mode = "oobb"
+    oomp_mode = "oobb"
 
     test = False
     #test = True
 
     if typ == "all":
-        filter = ""; save_type = "all"; navigation = True; overwrite = True; modes = ["3dpr"]; oomp_run = True; test = False
+        filter = ""; save_type = "all"; navigation = True; overwrite = True; modes = ["3dpr"]; oomp_run = False; test = False
         #default
         #filter = ""; save_type = "all"; navigation = True; overwrite = True; modes = ["3dpr"]; oomp_run = True; test = False
     elif typ == "fast":
@@ -120,18 +120,20 @@ def make_scad(**kwargs):
         
         part = copy.deepcopy(part_default)
         p3 = copy.deepcopy(kwargs)
-        p3["width"] = 3
-        p3["height"] = 3
-        #p3["thickness"] = 6
+        p3["width"] = 5
+        p3["height"] = 5
+
+
+        p3["thickness"] = 3
         #p3["extra"] = ""
         part["kwargs"] = p3
         nam = "base"
-        part["name"] = nam
+        part["name"] = "clothing_garment_rail_divider"
         if oomp_mode == "oobb":
             p3["oomp_size"] = nam
         if not test:
             pass
-            #parts.append(part)
+            parts.append(part)
 
 
     kwargs["parts"] = parts
@@ -177,11 +179,31 @@ def get_base(thing, **kwargs):
     p3["shape"] = f"oobb_holes"
     p3["both_holes"] = True  
     p3["depth"] = depth
-    p3["holes"] = "perimeter"
+    p3["holes"] = ["right","corner"]
     #p3["m"] = "#"
     pos1 = copy.deepcopy(pos)         
     p3["pos"] = pos1
     oobb_base.append_full(thing,**p3)
+
+    #add rail cutout shape rounded_rectangle, radius 35/2 size wid,heigh,dept wid = 35 height = 117, position is x0 y-41
+    if True:
+        p3 = copy.deepcopy(kwargs)
+        p3["type"] = "n"
+        p3["shape"] = f"rounded_rectangle"
+        p3["radius"] = 35/2
+        wid = 35
+        height = 117
+        depth = depth
+        size = [wid, height, depth]
+        p3["size"] = size
+        #p3["m"] = "#"
+        pos1 = copy.deepcopy(pos)
+        pos1[0] += 0
+        pos1[1] += -33.5
+        pos1[2] += 0
+        p3["pos"] = pos1
+        #p3["extra"] = extra
+        oobb_base.append_full(thing,**p3)
 
     if prepare_print:
         #put into a rotation object
