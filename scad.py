@@ -128,24 +128,30 @@ def make_scad(**kwargs):
         thicknesses.append(3)
         thicknesses.append(1.5)
 
+        extras = []
+        extras.append("")
+        extras.append("packaging_label_76_2_mm_width_50_8_mm_length")
+
         for siz in sizes:
             for thick in thicknesses:
-                wid = siz[0]
-                hei = siz[1]
-                part = copy.deepcopy(part_default)
-                p3 = copy.deepcopy(kwargs)
-                p3["width"] = wid
-                p3["height"] = hei
-                p3["thickness"] = thick
-                #p3["extra"] = ""
-                part["kwargs"] = p3
-                nam = "base"
-                part["name"] = "clothing_garment_rail_divider"
-                if oomp_mode == "oobb":
-                    p3["oomp_size"] = nam
-                if not test:
-                    pass
-                    parts.append(part)
+                for ex in extras:
+                    wid = siz[0]
+                    hei = siz[1]
+                    part = copy.deepcopy(part_default)
+                    p3 = copy.deepcopy(kwargs)
+                    p3["width"] = wid
+                    p3["height"] = hei
+                    p3["thickness"] = thick
+                    if ex != "":
+                        p3["extra"] = ex
+                    part["kwargs"] = p3
+                    nam = "base"
+                    part["name"] = "clothing_garment_rail_divider"
+                    if oomp_mode == "oobb":
+                        p3["oomp_size"] = nam
+                    if not test:
+                        pass
+                        parts.append(part)
 
 
     kwargs["parts"] = parts
@@ -192,9 +198,15 @@ def get_base(thing, **kwargs):
     p3["shape"] = f"oobb_holes"
     p3["both_holes"] = True  
     p3["depth"] = depth
-    p3["holes"] = ["right","corner","top","bottom"]
-    #p3["m"] = "#"
     pos11 = copy.deepcopy(pos1)
+    if extra == "":
+        p3["holes"] = ["right","corner","top","bottom"]
+    elif extra == "packaging_label_76_2_mm_width_50_8_mm_length":
+        p3["holes"] = ["top","bottom"]
+        p3["height"] = height -1
+        pos11[1] += - 15/2
+    #p3["m"] = "#"
+    
 
     p3["pos"] = pos11
     oobb_base.append_full(thing,**p3)
@@ -234,6 +246,61 @@ def get_base(thing, **kwargs):
         p3["pos"] = pos1
         #p3["extra"] = extra
         oobb_base.append_full(thing,**p3)
+
+    if extra == "packaging_label_76_2_mm_width_50_8_mm_length":
+        #add label piece
+        width_label  = 76.2
+        height_label = 50.8
+
+        #label holder big piece
+        pos_holder = copy.deepcopy(pos)
+        pos_holder[0] += 0
+        pos_holder[1] += 50 - height_label/2
+        pos_holder[2] += 0
+        if True:
+            extra_label_border = 3
+            extra_label_clearance = 1
+            depth_label_inset = 0.5   
+            radius_label = 3/2
+            p3 = copy.deepcopy(kwargs)
+            p3["type"] = "positive"
+            p3["shape"] = f"rounded_rectangle"
+            wid = width_label + extra_label_border
+            hei = height_label + extra_label_border
+            dep = depth
+            size = [wid, hei, dep]
+            p3["size"] = size
+            p3["radius"] = radius_label + extra_label_border/2
+            p3["depth"] = dep
+            p3["both_holes"] = True
+            p3["holes"] = "left"
+            #p3["m"] = "#"
+            pos1 = copy.deepcopy(pos_holder)
+            pos1[0] += 0
+            pos1[1] += hei/2
+            pos1[2] += 0
+            p3["pos"] = pos1
+            oobb_base.append_full(thing,**p3)
+
+            #inset
+
+            p4 = copy.deepcopy(p3)
+            p4["type"] = "n"
+            wid = width_label + extra_label_clearance
+            hei = height_label + extra_label_clearance
+            dep = depth_label_inset
+            size = [wid, hei, dep]
+            p4["size"] = size
+            rad = radius_label + extra_label_clearance/2
+            p4["radius"] = rad
+            
+            p4["both_holes"] = True
+            p4["holes"] = "left"
+            p4["m"] = "#"
+            pos11 = copy.deepcopy(pos1)
+            pos11[2] += 0#depth - depth_label_inset - dep/2
+            p4["pos"] = pos11        
+            oobb_base.append_full(thing,**p4)
 
     if prepare_print:
         #put into a rotation object
