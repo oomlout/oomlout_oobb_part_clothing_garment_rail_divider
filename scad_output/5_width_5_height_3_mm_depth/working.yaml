@@ -17,7 +17,7 @@ kwargs:
   height: 5
   modes:
   - 3dpr
-  navigation: true
+  navigation: false
   oomp_classification: oobb
   oomp_color: ''
   oomp_description_extra: ''
@@ -30,7 +30,6 @@ kwargs:
   oomp_type: part
   overwrite: true
   thickness: 3
-  typ: all
   type: oomlout_oobb_part_clothing_garment_rail_clothing_garment_rail_divider
   width: 5
 manufacturer: ''

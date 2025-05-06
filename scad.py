@@ -118,22 +118,34 @@ def make_scad(**kwargs):
         part_default["full_shift"] = [0, 0, 0]
         part_default["full_rotations"] = [0, 0, 0]
         
-        part = copy.deepcopy(part_default)
-        p3 = copy.deepcopy(kwargs)
-        p3["width"] = 5
-        p3["height"] = 5
 
+        sizes = []
+        sizes.append([5,5])
+        sizes.append([5,10])
+        sizes.append([5,12])
 
-        p3["thickness"] = 3
-        #p3["extra"] = ""
-        part["kwargs"] = p3
-        nam = "base"
-        part["name"] = "clothing_garment_rail_divider"
-        if oomp_mode == "oobb":
-            p3["oomp_size"] = nam
-        if not test:
-            pass
-            parts.append(part)
+        thicknesses = []
+        thicknesses.append(3)
+        thicknesses.append(1.5)
+
+        for siz in sizes:
+            for thick in thicknesses:
+                wid = siz[0]
+                hei = siz[1]
+                part = copy.deepcopy(part_default)
+                p3 = copy.deepcopy(kwargs)
+                p3["width"] = wid
+                p3["height"] = hei
+                p3["thickness"] = thick
+                #p3["extra"] = ""
+                part["kwargs"] = p3
+                nam = "base"
+                part["name"] = "clothing_garment_rail_divider"
+                if oomp_mode == "oobb":
+                    p3["oomp_size"] = nam
+                if not test:
+                    pass
+                    parts.append(part)
 
 
     kwargs["parts"] = parts
@@ -170,6 +182,7 @@ def get_base(thing, **kwargs):
     #p3["holes"] = True         uncomment to include default holes
     #p3["m"] = "#"
     pos1 = copy.deepcopy(pos)         
+    pos1[1] = -(height - 5) * 15/2
     p3["pos"] = pos1
     oobb_base.append_full(thing,**p3)
     
@@ -179,10 +192,11 @@ def get_base(thing, **kwargs):
     p3["shape"] = f"oobb_holes"
     p3["both_holes"] = True  
     p3["depth"] = depth
-    p3["holes"] = ["right","corner"]
+    p3["holes"] = ["right","corner","top","bottom"]
     #p3["m"] = "#"
-    pos1 = copy.deepcopy(pos)         
-    p3["pos"] = pos1
+    pos11 = copy.deepcopy(pos1)
+
+    p3["pos"] = pos11
     oobb_base.append_full(thing,**p3)
 
     #add rail cutout shape rounded_rectangle, radius 35/2 size wid,heigh,dept wid = 35 height = 117, position is x0 y-41
@@ -190,16 +204,32 @@ def get_base(thing, **kwargs):
         p3 = copy.deepcopy(kwargs)
         p3["type"] = "n"
         p3["shape"] = f"rounded_rectangle"
-        p3["radius"] = 35/2
-        wid = 35
-        height = 117
+        p3["radius"] = 28/2
+        wid = 28
+        height = 163
         depth = depth
         size = [wid, height, depth]
         p3["size"] = size
         #p3["m"] = "#"
         pos1 = copy.deepcopy(pos)
         pos1[0] += 0
-        pos1[1] += -41
+        pos1[1] += -67.5
+        pos1[2] += 0
+        p3["pos"] = pos1
+        #p3["extra"] = extra
+        oobb_base.append_full(thing,**p3)
+
+    #add rail cylinder radius 33/2
+    if True:
+        p3 = copy.deepcopy(kwargs)
+        p3["type"] = "n"
+        p3["shape"] = f"oobb_cylinder"
+        p3["radius"] = 33/2
+        depth = depth
+        p3["m"] = "#"
+        pos1 = copy.deepcopy(pos)
+        pos1[0] += 0
+        pos1[1] += 0
         pos1[2] += 0
         p3["pos"] = pos1
         #p3["extra"] = extra
